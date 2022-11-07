@@ -2,16 +2,18 @@ import { useFonts } from "expo-font";
 import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 const App = () => {
+  // Para importar novas fontes, é necessário utilizar a biblioteca expo-font e o hook useFonts da biblioteca
   const [fonteCarregada] = useFonts({
     "monoton-regular": require("./assets/fonts/Monoton-Regular.ttf"),
   });
 
+  // Danto tempo para o arquivo carregar o título do app
   if (!fonteCarregada) return <Text>Fonte sendo carregada...</Text>;
 
   return (
     <SafeAreaView style={estilos.container}>
       <View style={estilos.viewLogo}>
-        <Text style={estilos.tituloApp}>Dá Hora Filmes</Text>
+        <Text style={estilos.tituloApp}>MoratoFlix</Text>
       </View>
 
       <View style={estilos.viewBotoes}>
