@@ -1,33 +1,37 @@
-import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native'
+import { useFonts } from "expo-font";
+import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 const App = () => {
+  const [fonteCarregada] = useFonts({
+    "monoton-regular": require("./assets/fonts/Monoton-Regular.ttf"),
+  });
+
+  if (!fonteCarregada) return <Text>Fonte sendo carregada...</Text>;
+
   return (
-  
     <SafeAreaView style={estilos.container}>
       <View style={estilos.viewLogo}>
-        <Text>App</Text>
+        <Text style={estilos.tituloApp}>Dá Hora Filmes</Text>
       </View>
 
       <View style={estilos.viewBotoes}>
-        <Button title='Buscar Filmes'/>
-        <Button title='Favoritos'/>
+        <Button title="Buscar Filmes" />
+        <Button title="Favoritos" />
       </View>
 
       <View style={estilos.viewRodape}>
-        <Button title='Privacidade'/>
-        <Button title='Sobre'/>
+        <Button title="Privacidade" />
+        <Button title="Sobre" />
       </View>
-
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default App
+export default App;
 
 const estilos = StyleSheet.create({
   container: {
-    // o flex trabalha por intermédio de frações, ex: flex: 1 vale 1/6 da tela
-    backgroundColor: "yellow",
+    backgroundColor: "white",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -35,25 +39,28 @@ const estilos = StyleSheet.create({
   viewLogo: {
     flex: 3,
     width: "80%",
-    backgroundColor: "green",
     textAlign: "center",
     justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  tituloApp: {
+    fontSize: 36,
+    fontFamily: "monoton-regular",
+    color: "#5451a6",
+    // fontWeight: "bold",
   },
   viewBotoes: {
     flex: 2,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: "stretch",
-    backgroundColor: 'orange',
-    width: '80%',
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "flex-start",
+    width: "80%",
   },
   viewRodape: {
     flex: 0.5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: 'red',
-    width: '80%',
+    width: "80%",
   },
-  
 });
