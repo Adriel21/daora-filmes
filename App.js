@@ -1,5 +1,6 @@
 import { useFonts } from "expo-font";
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Button, SafeAreaView, StyleSheet, Text, View, Image } from "react-native";
+import logo from './assets/images/logo.png';
 
 const App = () => {
   // Para importar novas fontes, é necessário utilizar a biblioteca expo-font e o hook useFonts da biblioteca
@@ -12,19 +13,18 @@ const App = () => {
 
   return (
     <SafeAreaView style={estilos.container}>
-      <View style={estilos.viewLogo}>
-        <Text style={estilos.tituloApp}>MoratoFlix</Text>
-      </View>
-
-      <View style={estilos.viewBotoes}>
-        <Button title="Buscar Filmes" />
-        <Button title="Favoritos" />
-      </View>
-
-      <View style={estilos.viewRodape}>
-        <Button title="Privacidade" />
-        <Button title="Sobre" />
-      </View>
+        <View style={estilos.viewLogo}>
+          <Image style={estilos.logo} source={logo}/>
+          <Text style={estilos.tituloApp}>MoratoFlix</Text>
+        </View>
+        <View style={estilos.viewBotoes}>
+          <Button title="Buscar Filmes" />
+          <Button title="Favoritos" />
+        </View>
+        <View style={estilos.viewRodape}>
+          <Button title="Privacidade" />
+          <Button title="Sobre" />
+        </View>
     </SafeAreaView>
   );
 };
@@ -40,10 +40,14 @@ const estilos = StyleSheet.create({
   },
   viewLogo: {
     flex: 3,
-    width: "80%",
+    // width: "80%",
     textAlign: "center",
     justifyContent: "flex-end",
     alignItems: "center",
+  },
+  logo: {
+      width: 128,
+      height: 128,
   },
   tituloApp: {
     fontSize: 36,
