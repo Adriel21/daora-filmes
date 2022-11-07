@@ -1,4 +1,5 @@
 import { useFonts } from "expo-font";
+import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView, StyleSheet, Text, View, Image, Pressable } from "react-native";
 import logo from './assets/images/logo.png';
 
@@ -19,23 +20,32 @@ const App = () => {
         </View>
         <View style={estilos.viewBotoes}>
           {/* <Button title="Buscar Filmes" /> */}
+         
           <Pressable style={estilos.botaoInicial}>
-            <Text style={estilos.textoBotao}>Buscar Filmes</Text>
+            <Ionicons name="search" size={24} color="white" />
+
+            <Text style={estilos.textoBotao}> Buscar Filmes</Text>
           </Pressable>
           {/* <Button title="Favoritos" /> */}
           <Pressable style={estilos.botaoInicial}>
-            <Text style={estilos.textoBotao}>Favoritos</Text>
+            <Ionicons name="star" size={24} color="gold" />
+
+            <Text style={estilos.textoBotao}>  Favoritos</Text>
           </Pressable>
         </View>
         <View style={estilos.viewRodape}>
           {/* <Button title="Privacidade" />
           <Button title="Sobre" /> */}
           <Pressable style={estilos.botaoRodape}>
-            <Text style={estilos.textRodape}>Privacidade</Text>
+            <Ionicons name="lock-closed" size={24} color="white" />
+
+            <Text style={estilos.textRodape}> Privacidade</Text>
           </Pressable >
             
-          <Pressable>
-            <Text style={estilos.textRodape}>Sobre</Text>
+          <Pressable style={estilos.botaoRodape}>
+            <Ionicons name="information-circle" size={24} color="white" />
+             
+            <Text style={estilos.textRodape}> Sobre</Text>
           </Pressable>
         </View>
     </SafeAreaView>
@@ -76,10 +86,12 @@ const estilos = StyleSheet.create({
     width: "80%",
   },
   botaoInicial: {
+    flexDirection: "row",
     borderStyle: "solid",
-    borderWidth: 2,
+    borderWidth: 1,
     padding: 16,
     backgroundColor: "#5451a6",
+    borderRadius: 7,
   },
   textoBotao: {
     color: "white",
@@ -92,6 +104,9 @@ const estilos = StyleSheet.create({
     width: "100%",
     backgroundColor: "#5451a6",
     paddingHorizontal: 20,
+  },
+  botaoRodape: {
+    flexDirection: "row",
   },
   textRodape: {
     color: "white",
