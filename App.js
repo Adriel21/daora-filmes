@@ -1,19 +1,29 @@
+// Usar o StatusBar do react-native
+import { StatusBar, StyleSheet } from "react-native";
+import { NavigationContainer, StackActions } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Home from "./src/screens/Home";
 import FormBusca from "./src/screens/FormBusca";
-// Usar o StatusBar do react-native
-import { StatusBar } from "react-native";
 import Favoritos from "./src/screens/Favoritos";
 import Sobre from "./src/screens/Sobre";
 import Privacidade from "./src/screens/Privacidade";
+
 const App = () => {
- 
+  // Oficializando através de uma contante o gerenciador de navegação Stack (pilha de telas)
+ const Stack = createNativeStackNavigator();
 
   return (  
     <>
         {/* Opções para o barStyle: dark-content, light-content ou default */}
         <StatusBar barStyle={"light-content"}/>
-        <Home />
+
+        {/* O NavigationContainer deve envolve todas as telas navegáveis do nosso App */}
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen component={Home} name="Home" />
+            </Stack.Navigator>
+        </NavigationContainer>
     </>
     
   );
