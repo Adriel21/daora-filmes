@@ -5,6 +5,7 @@ import FormBusca from "./src/screens/FormBusca";
 import { StatusBar } from "react-native";
 import Favoritos from "./src/screens/Favoritos";
 import Sobre from "./src/screens/Sobre";
+import Privacidade from "./src/screens/Privacidade";
 const App = () => {
  
 
@@ -12,7 +13,7 @@ const App = () => {
     <>
         {/* Opções para o barStyle: dark-content, light-content ou default */}
         <StatusBar barStyle={"light-content"}/>
-        <Sobre />
+        <Privacidade />
     </>
     
   );
