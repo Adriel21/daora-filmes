@@ -13,7 +13,7 @@ const App = () => {
     <>
         {/* Opções para o barStyle: dark-content, light-content ou default */}
         <StatusBar barStyle={"light-content"}/>
-        <Privacidade />
+        <Home />
     </>
     
   );
