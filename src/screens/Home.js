@@ -5,7 +5,7 @@ import logo from "../../assets/images/logo.png";
 
 
 // Atalho para gerar template básico - rnfes
-const Home = () => {
+const Home = ({ navigation, Sobre }) => {
      // Para importar novas fontes, é necessário utilizar a biblioteca expo-font e o hook useFonts da biblioteca
   const [fonteCarregada] = useFonts({
     "monoton-regular": require("../../assets/fonts/Monoton-Regular.ttf"),
@@ -23,13 +23,15 @@ const Home = () => {
         <View style={estilos.viewBotoes}>
           {/* <Button title="Buscar Filmes" /> */}
          
-          <Pressable style={estilos.botaoInicial}>
+          <Pressable style={estilos.botaoInicial} onPress={() =>
+              navigation.navigate('FormBusca')}>
             <Ionicons name="search" size={24} color="white" />
 
             <Text style={estilos.textoBotao}> Buscar Filmes</Text>
           </Pressable>
           {/* <Button title="Favoritos" /> */}
-          <Pressable style={estilos.botaoInicial}>
+          <Pressable style={estilos.botaoInicial} onPress={() => 
+                navigation.navigate('Favoritos')}>
             <Ionicons name="star" size={24} color="gold" />
 
             <Text style={estilos.textoBotao}>  Favoritos</Text>
@@ -38,13 +40,15 @@ const Home = () => {
         <View style={estilos.viewRodape}>
           {/* <Button title="Privacidade" />
           <Button title="Sobre" /> */}
-          <Pressable style={estilos.botaoRodape}>
+          <Pressable style={estilos.botaoRodape} onPress={() => 
+                navigation.navigate('Privacidade')}>
             <Ionicons name="lock-closed" size={24} color="white" />
 
-            <Text style={estilos.textRodape}> Privacidade</Text>
+            <Text style={estilos.textRodape} > Privacidade</Text>
           </Pressable >
             
-          <Pressable style={estilos.botaoRodape}>
+          <Pressable style={estilos.botaoRodape} onPress={() => 
+                navigation.navigate('Sobre')}>
             <Ionicons name="information-circle" size={24} color="white" />
              
             <Text style={estilos.textRodape}> Sobre</Text>
