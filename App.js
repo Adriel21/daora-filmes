@@ -4,6 +4,7 @@ import FormBusca from "./src/screens/FormBusca";
 // Usar o StatusBar do react-native
 import { StatusBar } from "react-native";
 import Favoritos from "./src/screens/Favoritos";
+import Sobre from "./src/screens/Sobre";
 const App = () => {
  
 
@@ -11,7 +12,7 @@ const App = () => {
     <>
         {/* Opções para o barStyle: dark-content, light-content ou default */}
         <StatusBar barStyle={"light-content"}/>
-        <Favoritos />
+        <Sobre />
     </>
     
   );
