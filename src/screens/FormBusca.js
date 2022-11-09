@@ -52,6 +52,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     width: "80%",
+    // flex: 0.90,
   },
   botao: {
     backgroundColor: "#5456a6",

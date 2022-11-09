@@ -98,6 +98,10 @@ const estilos = StyleSheet.create({
       padding: 16,
       backgroundColor: "#5451a6",
       borderRadius: 7,
+      width: 135,
+      alignItems: "center",
+      paddingHorizontal: 10,
+      justifyContent: "center",
     },
     textoBotao: {
       color: "white",
@@ -113,6 +117,7 @@ const estilos = StyleSheet.create({
     },
     botaoRodape: {
       flexDirection: "row",
+      alignItems: "center",
     },
     textRodape: {
       color: "white",
