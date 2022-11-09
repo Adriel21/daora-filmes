@@ -5,6 +5,26 @@ import { useState } from 'react';
 const FormBusca = () => {
   // const inputFilme = (event) => setFilme(event.target.value);
 
+
+  // Captura em tempo real do que é digitado no TextInput através do evento onChangeText - solução do professor
+
+  // const FilmeDigitado = (valorDigitado) => {
+  //   setFilme(valorDigitado);
+  // };
+  
+  // Função chamada toda vez que o evento for chamado
+  // const buscarFilmes = () => {
+    // Se filme gerenciado pelo useState estiver vazio/undefined/false
+  //     if(!filme) {  
+  //       return Alert.alert('Ops', 'Você deve digitar o nome de um filme')
+  //     } else {
+  //       Alert.alert('Você procurou por:', filme)
+
+  //     }
+  // }
+
+
+  // Minha solução
   const [filme, setFilme] = useState("");
   const titulo = filme == '' ? 'Ops!' : 'Você procurou por:';
   const resultado = filme == '' ? 'Você deve digitar o nome de um filme' : filme;
@@ -20,6 +40,8 @@ const FormBusca = () => {
             <TextInput style={estilos.input} placeholder="Filme..." onChangeText={setFilme}></TextInput>
           </View>
           <Button title='Procurar' style={estilos.botao} onPress={() => Alert.alert(titulo, resultado)}/>
+          {/* Solução do professor */}
+          {/* <Button title='Procurar' style={estilos.botao} onPress={(buscarFilmes)}/> */}
       </SafeAreaView>
     
   )
