@@ -21,7 +21,11 @@ const FormBusca = ({navigation}) => {
        if(!filme) {  
          return Alert.alert('Ops', 'Você deve digitar o nome de um filme')
        } else {
-          navigation.navigate("Resultados");
+        // O navigate assume como segundo parâmetro um objeto
+        // Quando o nome da propriedade possui o mesmo nome do valor, podemos passar apenas uma vez ao invés de filme:filme
+
+        // Usamos a prop navigation (que vem do React Navigation programado no App) para acessar uma nova tela (no caso, Resultados). Para essa tela, passamos como objeto os dados digitados no formulário (neste caso, filme)
+          navigation.navigate("Resultados", {filme});
        }
    }
 
