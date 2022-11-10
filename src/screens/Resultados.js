@@ -5,6 +5,7 @@ const Resultados = ( {route} ) => {
     // Usamos a prop route (do React Navigation) para acessar os parâmetros desta rota de navegação e extrair os dados (neste caso, filmes) enviados para esta tela Resultados
     const { filme } = route.params;
     console.log(filme);
+    
   return (
     <SafeAreaView style={estilos.container}>
       <Text>Você buscou por: {filme}</Text>
