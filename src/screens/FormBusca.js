@@ -2,33 +2,35 @@ import { StyleSheet, Text, View, SafeAreaView, TextInput, Button, Alert } from '
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from 'react';
 
-const FormBusca = () => {
+const FormBusca = ({navigation}) => {
   // const inputFilme = (event) => setFilme(event.target.value);
 
 
   // Captura em tempo real do que é digitado no TextInput através do evento onChangeText - solução do professor
 
-  // const FilmeDigitado = (valorDigitado) => {
-  //   setFilme(valorDigitado);
-  // };
-  
-  // Função chamada toda vez que o evento for chamado
-  // const buscarFilmes = () => {
-    // Se filme gerenciado pelo useState estiver vazio/undefined/false
-  //     if(!filme) {  
-  //       return Alert.alert('Ops', 'Você deve digitar o nome de um filme')
-  //     } else {
-  //       Alert.alert('Você procurou por:', filme)
+   const FilmeDigitado = (valorDigitado) => {
+     setFilme(valorDigitado);
+   };
 
-  //     }
-  // }
+   const [filme, setFilme] = useState("");
+
+  
+  //  Função chamada toda vez que o evento for chamado
+   const buscarFilmes = () => {
+    //  Se filme gerenciado pelo useState estiver vazio/undefined/false
+       if(!filme) {  
+         return Alert.alert('Ops', 'Você deve digitar o nome de um filme')
+       } else {
+          navigation.navigate("Resultados");
+       }
+   }
 
 
   // Minha solução
-  const [filme, setFilme] = useState("");
-  const titulo = filme == '' ? 'Ops!' : 'Você procurou por:';
-  const resultado = filme == '' ? 'Você deve digitar o nome de um filme' : filme;
-  console.log(filme);
+  // const [filme, setFilme] = useState("");
+  // const titulo = filme == '' ? 'Ops!' : 'Você procurou por:';
+  // const resultado = filme == '' ? 'Você deve digitar o nome de um filme' : filme;
+  // console.log(filme);
 
   return (
     
@@ -37,11 +39,13 @@ const FormBusca = () => {
           <Text style={estilos.subtitulo}>Localize um fime que você viu ou gostaria de ver!</Text>
           <View style={estilos.caixa}>
             <Ionicons name="film" size={46} color="black" style={estilos.icon}/>
-            <TextInput style={estilos.input} placeholder="Filme..." onChangeText={setFilme}></TextInput>
+            <TextInput style={estilos.input} placeholder="Filme..." onChangeText={FilmeDigitado}></TextInput>
           </View>
-          <Button title='Procurar' style={estilos.botao} onPress={() => Alert.alert(titulo, resultado)}/>
+          {/* Minha solução */}
+          {/* <Button title='Procurar' style={estilos.botao} onPress={() => Alert.alert(titulo, resultado)}/> */}
+
           {/* Solução do professor */}
-          {/* <Button title='Procurar' style={estilos.botao} onPress={(buscarFilmes)}/> */}
+           <Button title='Procurar' style={estilos.botao} onPress={(buscarFilmes)}/> 
       </SafeAreaView>
     
   )
