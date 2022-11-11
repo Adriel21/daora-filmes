@@ -18,7 +18,7 @@ const Home = ({ navigation, Sobre }) => {
     <SafeAreaView style={estilos.container}>
         <View style={estilos.viewLogo}>
           <Image style={estilos.logo} source={logo}/>
-          <Text style={estilos.tituloApp}>MoratoFlix</Text>
+          <Text style={estilos.tituloApp}>Daora  Filmes</Text>
         </View>
         <View style={estilos.viewBotoes}>
           {/* <Button title="Buscar Filmes" /> */}
@@ -66,7 +66,6 @@ const estilos = StyleSheet.create({
       flex: 1,
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: "black",
     },
     viewLogo: {
       flex: 3,

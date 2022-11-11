@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native'
+import apiKey from '../../apiKey';
 import api from '../services/api';
 
 // Route é uma prop particular do navigation
@@ -10,13 +11,17 @@ const Resultados = ( {route} ) => {
     
     const [resultados, setResultados] = useState([]);
 
+    // useEffect: hook do React que executa operações no momento em que o componente (neste caso, Resultado) é renderizado
     useEffect(() => {  
+        // Assim que entramos em Resultado, é executado a função async buscarFilmes que por sua vez através do axios executa a consulta a API baseada no filme que foi digitado
         async function buscarFilmes(){
             try {
                 // Trecho passado no api.get é o endpoint de busca
+
+                // Aguardando a resposta da consulta get ao endpoint "search/movie" da api. Observe que este endpoint precisa de parâmetros para a execução correta de consulta. Estes parâmetros DEVEM ter o mesmo nome indicado na documentação do endpoint/url
                 const resposta = await api.get("/search/movie", {
                     params: {
-                        api_key: "ddfeddc4bf5c898516057c948fd51b6a",
+                        api_key: apiKey,
                         language: "pt-BR",
                         query: filme,
                         include_adult: false,
