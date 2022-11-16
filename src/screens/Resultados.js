@@ -59,6 +59,7 @@ const Resultados = ( {route} ) => {
 
         {!loading && <FlatList 
         // horizontal={true}
+        showsVerticalScrollIndicator={false}
         data={resultados}
         ListEmptyComponent={EmptyListMessage}
         ItemSeparatorComponent={Separator}
