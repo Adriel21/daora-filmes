@@ -7,7 +7,7 @@ const Detalhes = ( {route} ) => {
     console.log(route);
     // Extraindo dos parametros da rota os dados do objeto filme
     const { filme } = route.params;
-
+    console.log(filme.backdrop_path)
     // Poderiamos realizar o processo usando o hook useRoute. Nesse caso, não seria necessário passar a route como parâmetro da função
     // const route = useRoute();
 
@@ -15,12 +15,20 @@ const Detalhes = ( {route} ) => {
     <SafeAreaView style={estilos.Safecontainer}>
         {/* O ios não pega padding quando aplicado no SafeAreaView. Nesse caso, aplicamos dentro de uma View*/}
       <View style={estilos.container}>
-       
+            {filme.backdrop_path !== null && 
             <ImageBackground style={estilos.imagem} source={{uri: `https://image.tmdb.org/t/p/original/${filme.backdrop_path}`}}>
                 <View style={estilos.overlay}>
                     <Text style={estilos.titulo}>{filme.title}</Text>
                 </View>
-            </ImageBackground> 
+            </ImageBackground> }
+            {filme.backdrop_path == null && 
+            <ImageBackground style={estilos.imagemVazia} source={{uri: `https://image.tmdb.org/t/p/original/${filme.backdrop_path}`}}>
+                <View style={estilos.overlay}>
+                    <Text style={estilos.titulo}>{filme.title}</Text>
+                </View>
+            </ImageBackground> }
+            
+
 
             <View style={estilos.conteudo}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -50,6 +58,9 @@ const estilos = StyleSheet.create({
         flexDirection: "row",
         height: 350,
         width: "100%",
+     },
+     imagemVazia: {
+        backgroundColor: "black",
      },
      conteudo: {
         flex: 1, //Necessário para o scrollview funcionar
