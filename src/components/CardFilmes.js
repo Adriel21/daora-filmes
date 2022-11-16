@@ -1,9 +1,17 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 const CardFilmes = ({filme}) => {
     const {title, poster_path} = filme;
+
+// hook do navigation para permitir navegação  acessando recursos do React Navigation (Sem Props)
+  const navigation = useNavigation()
+  const leiaMais = () => {
+
+    navigation.navigate('Detalhes', {filme});
+  }
 
   return (
     
@@ -12,7 +20,7 @@ const CardFilmes = ({filme}) => {
         <View style={estilos.corpo}>
           <Text style={estilos.titulo}> {title} </Text>
           <View style={estilos.botoes}>
-            <Pressable style={estilos.botao}>
+            <Pressable style={estilos.botao} onPress={(leiaMais)}>
               <Text style={estilos.textoBotao}> <Ionicons name="book" size={12} color="#5451a6" /> Leia mais</Text>
             </Pressable>
             <Pressable style={estilos.botao}>

@@ -9,6 +9,7 @@ import Favoritos from "./src/screens/Favoritos";
 import Sobre from "./src/screens/Sobre";
 import Privacidade from "./src/screens/Privacidade";
 import Resultados from "./src/screens/Resultados";
+import Detalhes from "./src/screens/Detalhes";
 
 const App = () => {
   // Oficializando através de uma contante o gerenciador de navegação Stack (pilha de telas)
@@ -44,6 +45,8 @@ const App = () => {
                 <Stack.Screen component={Privacidade} name="Privacidade" />
                 <Stack.Screen component={Sobre} name="Sobre" />
                 <Stack.Screen component={Resultados} name="Resultados" />
+                <Stack.Screen component={Detalhes} name="Detalhes" />
+
 
             </Stack.Navigator>
         </NavigationContainer>
