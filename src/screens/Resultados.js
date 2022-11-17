@@ -6,72 +6,52 @@ import Loading from '../components/Loading';
 import api from '../services/api';
 import EmptyListMessage from '../components/EmptyListMessage';
 import Separator from '../components/Separator';
+// import VideoPlayer from 'react-native-video-player';
 
-const Resultados = ( {route} ) => {
-    const { filme } = route.params;
+const Resultados = () => {
     
-    const [resultados, setResultados] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState([]);
 
-    
-    useEffect(() => {  
-        
-        async function buscarFilmes(){
-            try {
-          
-                const resposta = await api.get("/search/movie", {
-                    params: {
-                        api_key: apiKey,
-                        language: "pt-BR",
-                        query: filme,
-                        include_adult: false,
-                    },
-                });
+    useEffect(() => {
+        async function getProducts() {
+            try{
+                // const resposta = await fetch("https://appanimeplus.tk/play-api.php?episodios=433311", {
+                //     method: "GET",
+                //     headers: {
+                //         "Content-type": "text/plain"
+                //     }
+                // }
+                // })
 
-                setResultados(resposta.data.results);
+                const resposta = await fetch("https://appanimeplus.tk/play-api.php?episodios=433311")
 
-                // Permite que criemos um delay na execução do código - simulando um tempo de carregamento lento usando temporizador
-                setInterval(() => {
-                    setLoading(false);
-                }, 3000);
-
-
+                const dados = await resposta.text();
+                // setProducts(dados);
+                console.log(dados);
             } catch (error) {
-                console.log("Deu ruim na busca da API:  " + error.message);
+                console.log("Deu ruim! " + error.message);
             }
-
-            
         }
-        buscarFilmes();
+
+        getProducts();
     }, [])
+
 
 
 
   return (
     <SafeAreaView style={estilos.container}>
-      <Text>Você buscou por: {filme}</Text>
-
-   
-      { loading && <Loading />}
-
-    
-        <View style={estilos.viewFilmes}>
-
-        {!loading && <FlatList 
-        // horizontal={true}
-        showsVerticalScrollIndicator={false}
-        data={resultados}
-        ListEmptyComponent={EmptyListMessage}
-        ItemSeparatorComponent={Separator}
-        renderItem={({item}) => {
-            return (
-                <CardFilmes filme={item}/>
-            )
-        }}
-        keyExtractor={item => item.id}
-        />
-        }
-       </View>
+      {products.map(({ id, title}) => (
+        // A função só pode retornar uma coisa
+        
+                <View key={id}>
+                
+                    <View><Text>{title}</Text></View>
+                    
+                </View>
+        
+    ))}
+       
     </SafeAreaView>
   )
 }
