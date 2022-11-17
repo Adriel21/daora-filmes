@@ -38,7 +38,7 @@ const CardFilmes = ({filme}) => {
     await AsyncStorage.setItem("@favoritos", JSON.stringify(listaDeFilmes));
 
     Alert.alert("Favoritos", "Filme salvo com sucesso!")
-    console.log(listaDeFilmes)
+    // console.log(listaDeFilmes)
   }
 
   return (
