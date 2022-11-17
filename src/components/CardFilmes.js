@@ -1,5 +1,5 @@
 // Importe o AsyncStorage do expo. Não use o do ReactNative padrão
-import {AsyncStorage} from "@react-native-async-storage/async-storage"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { StyleSheet, Text, View, Image, Pressable, Alert } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react'
@@ -22,14 +22,22 @@ const CardFilmes = ({filme}) => {
     // Etapas para o uso do AsyncStorage
 
     // 1) Carregamento do Storage do aparele do aparelho (se houver, caso contrário retorna null)
-   const filmesFavoritos = await AsyncStorage.getItem("@favoritos")
+    const filmesFavoritos = await AsyncStorage.getItem("@favoritos")
     // 2) Havendo storage prévio, transformamos os dados de filme em objeto e os guardamos numa lista (array)
+    let listaDeFilmes = JSON.parse(filmesFavoritos)
 
-    // 3) Se a lista não for indefinada, vamos iniciá-la vazia
+
+    // 3) Se a lista não for indefinada, vamos iniciá-la com um array vazio
+    if(!listaDeFilmes){
+      listaDeFilmes = [];
+    }
 
     // 4) Adicionamos os dados do filme na lista (array)
-
+    listaDeFilmes.push(filme)
     // 5) Finalmente, salvamos no storage dos dispositivos
+    await AsyncStorage.setItem("@favoritos", JSON.stringify(listaDeFilmes));
+
+    Alert.alert("Favoritos", "Filme salvo com sucesso!")
   }
 
   return (
