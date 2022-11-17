@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, ImageBackground, ScrollView } from 'react-native'
 import React from 'react'
+import formataData from '../utils/funcoes';
 
 // Prop de route para acesso aos dados Trafegados entre a navegação entre as telas/rotas
 const Detalhes = ( {route} ) => {
@@ -7,7 +8,7 @@ const Detalhes = ( {route} ) => {
     console.log(route);
     // Extraindo dos parametros da rota os dados do objeto filme
     const { filme } = route.params;
-    console.log(filme.backdrop_path)
+   //  console.log(filme.backdrop_path)
     // Poderiamos realizar o processo usando o hook useRoute. Nesse caso, não seria necessário passar a route como parâmetro da função
     // const route = useRoute();
 
@@ -32,7 +33,7 @@ const Detalhes = ( {route} ) => {
 
             <View style={estilos.conteudo}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <Text style={estilos.detalhes}>Avaliação: {filme.vote_average} | {filme.release_date}</Text>
+                    <Text style={estilos.detalhes}>Avaliação: {filme.vote_average} | Lançamento: {formataData(filme.release_date)}</Text>
                     <Text style={estilos.descricao}>{filme.overview || "Sem descrição"}</Text>
                 </ScrollView>
             </View>
