@@ -1,125 +1,181 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useEffect, useState } from 'react'
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, View, SafeAreaView, Button, FlatList, Image, Pressable } from 'react-native'
-import EmptyListMessage from '../components/EmptyListMessage';
-import Separator from '../components/Separator';
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  Alert,
+  Button,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Favoritos = () => {
-
-  const navigation = useNavigation()
- 
   const [listaFavoritos, setListaFavoritos] = useState([]);
 
-  const leiaMais = () => {
-    setFilme
-    const [filme, setFilme] = useState([]);
+  const navigation = useNavigation();
 
-    navigation.navigate('Detalhes', {filme});
-  }
-
-  useEffect( () => {
-    
+  useEffect(() => {
     async function carregarFavoritos() {
       try {
-       const dados =  await AsyncStorage.getItem("@favoritos")
-       const filmes = JSON.parse(dados);
-       if(dados != null) {
-        setListaFavoritos(filmes)
-       }
-      //  console.log(dados)
+        // Acessar o storage @favoritos e tentar carregar os dados existentes
+        const dados = await AsyncStorage.getItem("@favoritos");
+
+        // Havendo dados, transformamos eles em array de objetos
+        const filmes = JSON.parse(dados);
+
+        // Se realmente tem dados (ou seja, não é null), atualizamos o componente
+        if (dados != null) {
+          setListaFavoritos(filmes); // state de dados do componente
+        }
       } catch (error) {
-        console.log("Deu ruim no carregamento: " + error.message)
+        console.log("Deu ruim no carregamento: " + error.message);
       }
     }
-    
+
     carregarFavoritos();
-  }, [])
+  }, []);
 
-  console.log(listaFavoritos)
+  const verDetalhes = (filmeSelecionado) => {
+    navigation.navigate("Detalhes", { filme: filmeSelecionado });
+  };
 
-  const excluirFavoritos = async () =>{
-    await AsyncStorage.removeItem("@favoritos");
-    navigation.navigate("Favoritos")
+  const excluirFavoritos = async () => {
+    Alert.alert(
+      "Excluir TODOS?",
+      "Tem certeza que deseja excluir TODOS os favoritos?",
+      [
+        {
+          text: "Cancelar",
+          onPress: () => {
+            return false;
+          },
+          style: "cancel", // SOMENTE NO iOS
+        },
+        {
+          text: "Sim, to nem aí",
+          onPress: async () => {
+            await AsyncStorage.removeItem("@favoritos");
+            setListaFavoritos([]);
+          },
+          style: "destructive", // SOMENTE NO iOS
+        },
+      ]
+    );
+  };
 
-    return;
-  }
+  const excluirUmFavorito = async (indice) => {
+    // Alert.alert(`Excluir filme no índice: ${indice}`);
+
+    /* Etapas para exclusão do filme escolhido */
+
+    // 1) Conhecendo o índice, remover o elemento (filme do array listaFavoritos)
+
+    /* splice: indicamos o índice de referência (na prática, o índice do filme
+      que queremos remover e, a partir deste índice, a quantidade de elementos
+      que queremos remover. Como aqui queremos apagar somente o próprio filme
+      escolhido, passamos 1) */
+
+    listaFavoritos.splice(indice, 1);
+
+    // 2) Atualizar o storage com a lista atualizada (ou seja, sem o filme)
+    /* Obs.: é necessário transformar em string antes de gravar no Storage */
+    await AsyncStorage.setItem("@favoritos", JSON.stringify(listaFavoritos));
+
+    // 3) Recarregar do storage a nova lista de favoritos
+    /* Obs.: é necessário transformar em array/objetos antes de manipular
+    na aplicação */
+    const listaDeFilmes = JSON.parse(await AsyncStorage.getItem("@favoritos"));
+
+    // 4) Atualizar o state para um novo render na tela com a lista de favoritos
+    setListaFavoritos(listaDeFilmes);
+  };
+
   return (
     <SafeAreaView style={estilos.safeContainer}>
       <View style={estilos.container}>
-      <Text>Quantidade: {listaFavoritos.length}</Text>
-      <Button title="Excluir favoritos" onPress={excluirFavoritos}/>
-        <FlatList 
-          showsVerticalScrollIndicator={false}
-          data={listaFavoritos}
-          // ListEmptyComponent={EmptyListMessage}
-          // ItemSeparatorComponent={Separator}
-          renderItem={({item}) => {
+        <View style={estilos.cabecalho}>
+          <Text>Quantidade: {listaFavoritos.length} </Text>
+
+          {listaFavoritos.length > 0 && (
+            <Pressable
+              style={estilos.botaoExcluirTudo}
+              onPress={excluirFavoritos}
+            >
+              <Text style={estilos.textoExcluirTudo}>
+                <Ionicons name="trash-outline" size={16} /> Excluir Favoritos
+              </Text>
+            </Pressable>
+          )}
+        </View>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {listaFavoritos.map((filmeFavorito, indice) => {
             return (
-                <View style={estilos.card}>
-                  <Image style={estilos.image} resizeMode="cover" source={{uri: `https://image.tmdb.org/t/p/original/${item.poster_path}`}}/>
-                  <View style={estilos.corpo}>
-                    <Text style={estilos.titulo}>{item.title}</Text>
-                    <Pressable style={estilos.botao} onPress={(leiaMais)}>
-                      <Text style={estilos.textoBotao}> <Ionicons name="book" size={12} color="#5451a6" /> Leia mais</Text>
-                    </Pressable>
-                  </View>
-                </View>
-            )
-        }}
-        keyExtractor={item => item.id}
-        />
-       
-        
-       
+              <Pressable
+                // onPress={verDetalhes}
+                // onPress={verDetalhes.bind(this, filmeFavorito)}
+                onPress={() => verDetalhes(filmeFavorito)}
+                key={filmeFavorito.id}
+                style={estilos.itemFilme}
+              >
+                <Text style={estilos.titulo}>{filmeFavorito.title}</Text>
+                <Pressable
+                  style={estilos.botaoExcluir}
+                  // onPress={excluirUmFavorito}
+                  // onPress={() => excluirUmFavorito(indice)}
+                  onPress={excluirUmFavorito.bind(this, indice)}
+                >
+                  <Ionicons name="trash" size={16} color="white" />
+                </Pressable>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Favoritos
+export default Favoritos;
 
 const estilos = StyleSheet.create({
-  safeContainer: {flex: 1 },
+  safeContainer: { flex: 1 },
   container: {
-    padding: 8,
     flex: 1,
+    padding: 8,
+    backgroundColor: "white",
   },
-  image: {
-    height: 150,
-    width: 100,
-},
-titulo:{
-  backgroundColor: "#5451a6",
-  color: "white",
-  fontSize: 16,
-  paddingVertical: 8,
-  textAlign: "center"
-},
-card:{
-  marginVertical: 4,
-  flexDirection: "row",
-  borderWidth: 1,
-  borderStyle: "solid",
-  borderColor: "black",
-  justifyContent: "center",
-  // alignItems: "center"
-},
-corpo: {
-  flex: 2,
-},
-botao: {
-  padding: 12,
-  borderWidth: 1,
-  borderColor: "#5451a6"
-},
-textoBotao: {
-  color: "#5451a6",
-  fontSize: 12,
-  textTransform: "uppercase",
-  textAlign: "center",
-  fontWeight: "semibold",
-  justifyContent: "center"
-}
-})
+  itemFilme: {
+    padding: 8,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#eee8fc",
+    marginVertical: 8,
+    borderRadius: 4,
+    alignItems: "center",
+  },
+  botaoExcluir: {
+    backgroundColor: "#C0392B",
+    padding: 8,
+    borderRadius: 4,
+  },
+  cabecalho: {
+    marginVertical: 8,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  botaoExcluirTudo: {
+    borderWidth: 1,
+    borderColor: "#C0392B",
+    padding: 8,
+    borderRadius: 4,
+  },
+  textoExcluirTudo: { color: "#C0392B" },
+  titulo: { flex: 1, fontSize: 14 },
+});
