@@ -19,12 +19,9 @@ const Resultados = ( {route} ) => {
         async function buscarFilmes(){
             try {
           
-                const resposta = await api.get("/search/movie", {
+                const resposta = await api.get("/alunos/movie", {
                     params: {
-                        api_key: apiKey,
-                        language: "pt-BR",
-                        query: filme,
-                        include_adult: false,
+                        id: filme,
                     },
                 });
 
